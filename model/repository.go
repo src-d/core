@@ -23,11 +23,11 @@ type Repository struct {
 	Status FetchStatus
 	// FetchedAt is the timestamp of the last time this repository was
 	// fetched and archived in our repository storage successfully.
-	FetchedAt time.Time
+	FetchedAt *time.Time
 	// FetchErrorAt is the timestamp of the last fetch error, if any.
-	FetchErrorAt time.Time
+	FetchErrorAt *time.Time
 	// LastCommitAt is the last commit time found in this repository.
-	LastCommitAt time.Time
+	LastCommitAt *time.Time
 	// References is the current slice of references as present in our
 	// repository storage.
 	References []*Reference

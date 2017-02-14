@@ -420,11 +420,11 @@ func (r *Repository) ColumnAddress(col string) (interface{}, error) {
 	case "status":
 		return &r.Status, nil
 	case "fetched_at":
-		return &r.FetchedAt, nil
+		return r.FetchedAt, nil
 	case "fetch_error_at":
-		return &r.FetchErrorAt, nil
+		return r.FetchErrorAt, nil
 	case "last_commit_at":
-		return &r.LastCommitAt, nil
+		return r.LastCommitAt, nil
 	case "_references":
 		return types.JSON(&r.References), nil
 
@@ -452,7 +452,7 @@ func (r *Repository) Value(col string) (interface{}, error) {
 	case "last_commit_at":
 		return r.LastCommitAt, nil
 	case "_references":
-		return types.Slice(r.References), nil
+		return types.JSON(r.References), nil
 
 	default:
 		return nil, fmt.Errorf("kallax: invalid column in Repository: %s", col)
