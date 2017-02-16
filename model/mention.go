@@ -4,6 +4,7 @@ import "github.com/src-d/go-kallax"
 
 // Mention is the sighting of a remote repository online.
 type Mention struct {
+	ID                kallax.ULID `pk:""`
 	kallax.Model      `table:"mentions"`
 	kallax.Timestamps `kallax:",inline"`
 	// Endpoint is the repository URL as found.

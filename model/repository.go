@@ -12,7 +12,8 @@ func newRepository() *Repository {
 
 // Repository represents a remote repository found on the Internet.
 type Repository struct {
-	kallax.Model `table:"repositories"`
+	ID                kallax.ULID `pk:""`
+	kallax.Model      `table:"repositories"`
 	kallax.Timestamps `kallax:",inline"`
 	// Endpoints is a slice of valid git endpoints to reach this repository.
 	// For example, git://host/my/repo.git and https://host/my/repo.git.
