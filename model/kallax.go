@@ -17,7 +17,7 @@ var _ fmt.Formatter
 
 // NewMention returns a new instance of Mention.
 func NewMention() (record *Mention) {
-	return new(Mention)
+	return newMention()
 }
 
 // GetID returns the primary key of the model.

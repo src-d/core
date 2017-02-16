@@ -7,7 +7,7 @@ import (
 )
 
 func newRepository() *Repository {
-	return &Repository{Status: Pending}
+	return &Repository{ID: kallax.NewULID(), Status: Pending}
 }
 
 // Repository represents a remote repository found on the Internet.
