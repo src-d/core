@@ -2,6 +2,10 @@ package model
 
 import "github.com/src-d/go-kallax"
 
+func newMention() *Mention {
+	return &Mention{ID: kallax.NewULID()}
+}
+
 // Mention is the sighting of a remote repository online.
 type Mention struct {
 	ID                kallax.ULID `pk:""`
