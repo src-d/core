@@ -5,13 +5,28 @@ import (
 
 	"srcd.works/core.v0/model"
 
+	"srcd.works/framework.v0/configurable"
 	"srcd.works/framework.v0/database"
+	"srcd.works/go-billy.v1"
+	"srcd.works/go-billy.v1/osfs"
 )
+
+type configType struct {
+	configurable.BasicConfiguration
+	TempDir string `default:"/tmp/sourced"`
+}
+
+var config = &configType{}
+
+func init() {
+	configurable.InitConfig(config)
+}
 
 var container struct {
 	Database             *sql.DB
 	ModelRepositoryStore *model.RepositoryStore
 	ModelMentionStore    *model.MentionStore
+	TempDirFilesystem    billy.Filesystem
 }
 
 // Database returns a sql.DB for the default database. If it is not possible to
@@ -45,4 +60,15 @@ func ModelMentionStore() *model.MentionStore {
 	}
 
 	return container.ModelMentionStore
+}
+
+// TemporaryFilesystem returns a billy.Filesystem that can be used to store
+// temporary files. This directory might or might not be shared with other
+// applications, so subdirectories should be used.
+func TemporaryFilesystem() billy.Filesystem {
+	if container.TempDirFilesystem == nil {
+		container.TempDirFilesystem = osfs.New(config.TempDir)
+	}
+
+	return container.TempDirFilesystem
 }
