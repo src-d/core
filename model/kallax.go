@@ -7,6 +7,7 @@ package model
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/src-d/go-kallax"
 	"github.com/src-d/go-kallax/types"
@@ -296,6 +297,49 @@ func (q *MentionQuery) Where(cond kallax.Condition) *MentionQuery {
 	return q
 }
 
+// FindByID adds a new filter to the query that will require that
+// the ID property is equal to one of the passed values; if no passed values, it will do nothing
+func (q *MentionQuery) FindByID(v ...kallax.ULID) *MentionQuery {
+	if len(v) == 0 {
+		return q
+	}
+	values := make([]interface{}, len(v))
+	for i, val := range v {
+		values[i] = val
+	}
+	return q.Where(kallax.In(Schema.Mention.ID, values...))
+}
+
+// FindByCreatedAt adds a new filter to the query that will require that
+// the CreatedAt property is equal to the passed value
+func (q *MentionQuery) FindByCreatedAt(cond kallax.ScalarCond, v time.Time) *MentionQuery {
+	return q.Where(cond(Schema.Mention.CreatedAt, v))
+}
+
+// FindByUpdatedAt adds a new filter to the query that will require that
+// the UpdatedAt property is equal to the passed value
+func (q *MentionQuery) FindByUpdatedAt(cond kallax.ScalarCond, v time.Time) *MentionQuery {
+	return q.Where(cond(Schema.Mention.UpdatedAt, v))
+}
+
+// FindByEndpoint adds a new filter to the query that will require that
+// the Endpoint property is equal to the passed value
+func (q *MentionQuery) FindByEndpoint(v string) *MentionQuery {
+	return q.Where(kallax.Eq(Schema.Mention.Endpoint, v))
+}
+
+// FindByProvider adds a new filter to the query that will require that
+// the Provider property is equal to the passed value
+func (q *MentionQuery) FindByProvider(v string) *MentionQuery {
+	return q.Where(kallax.Eq(Schema.Mention.Provider, v))
+}
+
+// FindByVCS adds a new filter to the query that will require that
+// the VCS property is equal to the passed value
+func (q *MentionQuery) FindByVCS(v VCS) *MentionQuery {
+	return q.Where(kallax.Eq(Schema.Mention.VCS, v))
+}
+
 // MentionResultSet is the set of results returned by a query to the
 // database.
 type MentionResultSet struct {
@@ -428,11 +472,11 @@ func (r *Repository) ColumnAddress(col string) (interface{}, error) {
 	case "status":
 		return &r.Status, nil
 	case "fetched_at":
-		return r.FetchedAt, nil
+		return types.Nullable(&r.FetchedAt), nil
 	case "fetch_error_at":
-		return r.FetchErrorAt, nil
+		return types.Nullable(&r.FetchErrorAt), nil
 	case "last_commit_at":
-		return r.LastCommitAt, nil
+		return types.Nullable(&r.LastCommitAt), nil
 	case "_references":
 		return types.JSON(&r.References), nil
 
@@ -455,10 +499,19 @@ func (r *Repository) Value(col string) (interface{}, error) {
 	case "status":
 		return (string)(r.Status), nil
 	case "fetched_at":
+		if r.FetchedAt == (*time.Time)(nil) {
+			return nil, nil
+		}
 		return r.FetchedAt, nil
 	case "fetch_error_at":
+		if r.FetchErrorAt == (*time.Time)(nil) {
+			return nil, nil
+		}
 		return r.FetchErrorAt, nil
 	case "last_commit_at":
+		if r.LastCommitAt == (*time.Time)(nil) {
+			return nil, nil
+		}
 		return r.LastCommitAt, nil
 	case "_references":
 		return types.JSON(r.References), nil
@@ -691,6 +744,68 @@ func (q *RepositoryQuery) Offset(n uint64) *RepositoryQuery {
 func (q *RepositoryQuery) Where(cond kallax.Condition) *RepositoryQuery {
 	q.BaseQuery.Where(cond)
 	return q
+}
+
+// FindByID adds a new filter to the query that will require that
+// the ID property is equal to one of the passed values; if no passed values, it will do nothing
+func (q *RepositoryQuery) FindByID(v ...kallax.ULID) *RepositoryQuery {
+	if len(v) == 0 {
+		return q
+	}
+	values := make([]interface{}, len(v))
+	for i, val := range v {
+		values[i] = val
+	}
+	return q.Where(kallax.In(Schema.Repository.ID, values...))
+}
+
+// FindByCreatedAt adds a new filter to the query that will require that
+// the CreatedAt property is equal to the passed value
+func (q *RepositoryQuery) FindByCreatedAt(cond kallax.ScalarCond, v time.Time) *RepositoryQuery {
+	return q.Where(cond(Schema.Repository.CreatedAt, v))
+}
+
+// FindByUpdatedAt adds a new filter to the query that will require that
+// the UpdatedAt property is equal to the passed value
+func (q *RepositoryQuery) FindByUpdatedAt(cond kallax.ScalarCond, v time.Time) *RepositoryQuery {
+	return q.Where(cond(Schema.Repository.UpdatedAt, v))
+}
+
+// FindByEndpoints adds a new filter to the query that will require that
+// the Endpoints property contains all the passed values; if no passed values, it will do nothing
+func (q *RepositoryQuery) FindByEndpoints(v ...string) *RepositoryQuery {
+	if len(v) == 0 {
+		return q
+	}
+	values := make([]interface{}, len(v))
+	for i, val := range v {
+		values[i] = val
+	}
+	return q.Where(kallax.ArrayContains(Schema.Repository.Endpoints, values...))
+}
+
+// FindByStatus adds a new filter to the query that will require that
+// the Status property is equal to the passed value
+func (q *RepositoryQuery) FindByStatus(v FetchStatus) *RepositoryQuery {
+	return q.Where(kallax.Eq(Schema.Repository.Status, v))
+}
+
+// FindByFetchedAt adds a new filter to the query that will require that
+// the FetchedAt property is equal to the passed value
+func (q *RepositoryQuery) FindByFetchedAt(cond kallax.ScalarCond, v time.Time) *RepositoryQuery {
+	return q.Where(cond(Schema.Repository.FetchedAt, v))
+}
+
+// FindByFetchErrorAt adds a new filter to the query that will require that
+// the FetchErrorAt property is equal to the passed value
+func (q *RepositoryQuery) FindByFetchErrorAt(cond kallax.ScalarCond, v time.Time) *RepositoryQuery {
+	return q.Where(cond(Schema.Repository.FetchErrorAt, v))
+}
+
+// FindByLastCommitAt adds a new filter to the query that will require that
+// the LastCommitAt property is equal to the passed value
+func (q *RepositoryQuery) FindByLastCommitAt(cond kallax.ScalarCond, v time.Time) *RepositoryQuery {
+	return q.Where(cond(Schema.Repository.LastCommitAt, v))
 }
 
 // RepositoryResultSet is the set of results returned by a query to the
