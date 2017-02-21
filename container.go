@@ -2,6 +2,8 @@ package core
 
 import (
 	"database/sql"
+	"io/ioutil"
+	"os"
 
 	"srcd.works/core.v0/model"
 
@@ -63,11 +65,19 @@ func ModelMentionStore() *model.MentionStore {
 }
 
 // TemporaryFilesystem returns a billy.Filesystem that can be used to store
-// temporary files. This directory might or might not be shared with other
-// applications, so subdirectories should be used.
+// temporary files. This directory is dedicated to the running application.
 func TemporaryFilesystem() billy.Filesystem {
 	if container.TempDirFilesystem == nil {
-		container.TempDirFilesystem = osfs.New(config.TempDir)
+		if err := os.MkdirAll(config.TempDir, os.FileMode(0755)); err != nil {
+			panic(err)
+		}
+
+		dir, err := ioutil.TempDir(config.TempDir, "")
+		if err != nil {
+			panic(err)
+		}
+
+		container.TempDirFilesystem = osfs.New(dir)
 	}
 
 	return container.TempDirFilesystem
