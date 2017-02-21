@@ -6,6 +6,20 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestBroker(t *testing.T) {
+	require := require.New(t)
+	b := Broker()
+	require.NotNil(b)
+
+	b2 := Broker()
+	require.Exactly(b, b2)
+
+	q, err := b.Queue("foo")
+	require.NotNil(q)
+	require.NoError(err)
+	require.NoError(b.Close())
+}
+
 func TestDatabase(t *testing.T) {
 	require := require.New(t)
 	db := Database()
