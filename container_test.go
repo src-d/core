@@ -32,3 +32,19 @@ func TestModelMentionStore(t *testing.T) {
 	s2 := ModelMentionStore()
 	require.Exactly(s, s2)
 }
+
+func TestTemporaryFilesystem(t *testing.T) {
+	require := require.New(t)
+
+	fs := TemporaryFilesystem()
+	require.NotNil(fs)
+
+	fs2 := TemporaryFilesystem()
+	require.Exactly(fs, fs2)
+
+	f, err := fs.TempFile("", "test")
+	require.NoError(err)
+	fPath := f.Filename()
+	defer func() { require.NoError(fs.Remove(fPath)) }()
+	require.NoError(f.Close())
+}
