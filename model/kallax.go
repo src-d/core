@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/src-d/go-kallax"
-	"github.com/src-d/go-kallax/types"
+	"gopkg.in/src-d/go-kallax.v1"
+	"gopkg.in/src-d/go-kallax.v1/types"
 )
 
 var _ types.SQLType

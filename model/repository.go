@@ -3,8 +3,10 @@ package model
 import (
 	"time"
 
-	"github.com/src-d/go-kallax"
+	"gopkg.in/src-d/go-kallax.v1"
 )
+
+//go:generate kallax gen
 
 func newRepository() *Repository {
 	return &Repository{ID: kallax.NewULID(), Status: Pending}
