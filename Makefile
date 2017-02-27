@@ -1,7 +1,8 @@
 # Package configuration
-PROJECT = core 
+PROJECT = core
 COMMANDS =
 CODECOV_TOKEN = 3738ca87-a09f-4e52-9cf1-d50e15401b72
+SRCD_WORKS = true
 
 # Including devops Makefile
 MAKEFILE = Makefile.main
