@@ -1,6 +1,6 @@
 package model
 
-import "github.com/src-d/go-kallax"
+import "gopkg.in/src-d/go-kallax.v1"
 
 func newMention() *Mention {
 	return &Mention{ID: kallax.NewULID()}
