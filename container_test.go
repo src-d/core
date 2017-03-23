@@ -38,15 +38,6 @@ func TestModelRepositoryStore(t *testing.T) {
 	require.Exactly(s, s2)
 }
 
-func TestModelMentionStore(t *testing.T) {
-	require := require.New(t)
-	s := ModelMentionStore()
-	require.NotNil(s)
-
-	s2 := ModelMentionStore()
-	require.Exactly(s, s2)
-}
-
 func TestTemporaryFilesystem(t *testing.T) {
 	require := require.New(t)
 
