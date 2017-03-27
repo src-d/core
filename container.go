@@ -30,7 +30,6 @@ var container struct {
 	Broker               queue.Broker
 	Database             *sql.DB
 	ModelRepositoryStore *model.RepositoryStore
-	ModelMentionStore    *model.MentionStore
 	TempDirFilesystem    billy.Filesystem
 }
 
@@ -68,17 +67,6 @@ func ModelRepositoryStore() *model.RepositoryStore {
 	}
 
 	return container.ModelRepositoryStore
-}
-
-// ModelMentionStore returns the default *model.ModelMentionStore, using the
-// default database. If it is not possible to connect to the database, this
-// function will panic. Multiple calls will always return the same instance.
-func ModelMentionStore() *model.MentionStore {
-	if container.ModelMentionStore == nil {
-		container.ModelMentionStore = model.NewMentionStore(Database())
-	}
-
-	return container.ModelMentionStore
 }
 
 // TemporaryFilesystem returns a billy.Filesystem that can be used to store
