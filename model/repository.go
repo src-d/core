@@ -50,3 +50,6 @@ const (
 	// been fetched yet.
 	Pending = "pending"
 )
+
+// Language represents a language name.
+type Language string
