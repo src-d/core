@@ -1,8 +1,8 @@
 package model
 
 import (
+	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-kallax.v1"
-	"srcd.works/go-git.v4/plumbing"
 )
 
 // Reference is a reference of a repository as present in our repository storage.
