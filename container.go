@@ -7,11 +7,11 @@ import (
 
 	"srcd.works/core.v0/model"
 
+	"gopkg.in/src-d/go-billy.v2"
+	"gopkg.in/src-d/go-billy.v2/osfs"
 	"srcd.works/framework.v0/configurable"
 	"srcd.works/framework.v0/database"
 	"srcd.works/framework.v0/queue"
-	"srcd.works/go-billy.v1"
-	"srcd.works/go-billy.v1/osfs"
 )
 
 type containerConfig struct {
