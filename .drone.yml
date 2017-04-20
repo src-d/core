@@ -4,8 +4,9 @@ build:
     commands:
       - make dependencies
       - make test-coverage
+      - make ensure-models-generated
   packages:
-    image: golang:1.7
+    image: golang:1.8
     commands:
       - make packages
     when:
