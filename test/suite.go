@@ -7,9 +7,8 @@ import (
 	"os"
 	"time"
 
-	"srcd.works/framework.v0/database"
-
 	"github.com/stretchr/testify/suite"
+	"gopkg.in/src-d/framework.v0/database"
 )
 
 var schemaFile = fmt.Sprintf("%s/src/srcd.works/core.v0/schema/schema.sql", os.Getenv("GOPATH"))
