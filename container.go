@@ -5,13 +5,13 @@ import (
 	"io/ioutil"
 	"os"
 
-	"srcd.works/core.v0/model"
+	"gopkg.in/src-d/core.v0/model"
 
+	"gopkg.in/src-d/framework.v0/configurable"
+	"gopkg.in/src-d/framework.v0/database"
+	"gopkg.in/src-d/framework.v0/queue"
 	"gopkg.in/src-d/go-billy.v2"
 	"gopkg.in/src-d/go-billy.v2/osfs"
-	"srcd.works/framework.v0/configurable"
-	"srcd.works/framework.v0/database"
-	"srcd.works/framework.v0/queue"
 )
 
 type containerConfig struct {
