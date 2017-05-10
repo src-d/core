@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"srcd.works/core.v0/model"
+	"gopkg.in/src-d/core.v0/model"
 
 	"gopkg.in/src-d/framework.v0/configurable"
 	"gopkg.in/src-d/framework.v0/database"
