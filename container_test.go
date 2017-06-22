@@ -49,7 +49,7 @@ func TestTemporaryFilesystem(t *testing.T) {
 
 	f, err := fs.TempFile("", "test")
 	require.NoError(err)
-	fPath := f.Filename()
+	fPath := f.Name()
 	defer func() { require.NoError(fs.Remove(fPath)) }()
 	require.NoError(f.Close())
 }
