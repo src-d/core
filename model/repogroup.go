@@ -1,6 +1,6 @@
 package model
 
-import kallax "gopkg.in/src-d/go-kallax.v1"
+import "gopkg.in/src-d/go-kallax.v1"
 
 // RepositoryGroup represents a set of repositories identified by a label
 // with a main repository.

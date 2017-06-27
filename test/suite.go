@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"srcd.works/framework.v0/database"
+	"gopkg.in/src-d/framework.v0/database"
 
 	"github.com/stretchr/testify/suite"
 )
