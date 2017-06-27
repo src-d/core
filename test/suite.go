@@ -64,7 +64,7 @@ func init() {
 	srcs = append(srcs, build.Default.SrcDirs()...)
 
 	for _, src := range srcs {
-		rf := filepath.Join(src, "srcd.works", "core.v0")
+		rf := filepath.Join(src, "gopkg.in", "src-d", "core.v0")
 
 		if _, err := os.Stat(rf); err == nil {
 			rootDir = rf
